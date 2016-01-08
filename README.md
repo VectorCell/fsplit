@@ -10,4 +10,5 @@ Input is expected to be received via stdin.
 
 The files can then be reassembled with a tool such as cat, taking care to maintain
 the original file order:
+
 `cat filename1 filename2 ... lastfilename`

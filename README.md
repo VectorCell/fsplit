@@ -12,3 +12,9 @@ The files can then be reassembled with a tool such as cat, taking care to mainta
 the original file order:
 
 `cat filename1 filename2 ... lastfilename`
+
+Travis CI builds:
+
+|Branch | Status |
+|-------|--------|
+|master | [![Build Status](https://travis-ci.org/VectorCell/fsplit.svg?branch=master)](https://travis-ci.org/VectorCell/fsplit?branch=master) |

@@ -71,7 +71,6 @@ int main (int argc, char *argv[])
 	for (auto& p : files) {
 		string& name = p.first;
 		size_t size = p.second != 0 ? p.second : -1;
-		cout << "size: " << size << endl;
 		outfile = fopen(name.c_str(), "w");
 		copy_to_file(infile, outfile, size);
 		fclose(outfile);

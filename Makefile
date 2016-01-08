@@ -18,7 +18,7 @@ fsplit : fsplit.cc
 	$(CXX) $(CPPFLAGS) -o fsplit fsplit.cc $(LIBFLAGS)
 
 test : clean all
-	echo "hello world" | ./fsplit file1 6 file2
+	./test.sh
 
 clean :
 	rm -f *.d

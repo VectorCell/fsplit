@@ -4,6 +4,7 @@ echo "hello world" | tee orig | ./fsplit one 6 two
 cat one two > comb
 if [ -n "$(diff orig comb)" ]; then
 	echo "FAIL test 1"
+	exit 1
 else
 	echo "PASS test 1"
 fi
@@ -18,6 +19,7 @@ md5sum < comb > comb.md5
 if [ -n "$(diff orig.md5 comb.md5)" ]; then
 	cat orig.md5 comb.md5
 	echo "FAIL test 2"
+	exit 1
 else
 	echo "PASS test 2"
 fi

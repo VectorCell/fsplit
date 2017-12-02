@@ -42,6 +42,7 @@ bool parse_args (int argc, char *argv[], vector<pair<string, size_t>>& files)
 	}
 	for (int k = 1; k < argc; k += 2) {
 		string name = argv[k];
+		string ssize = argv[k + 1];
 		size_t size = 0;
 		if (k < argc - 1) {
 			if (sizeof(size_t) == sizeof(unsigned long)) {

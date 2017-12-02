@@ -1,5 +1,5 @@
 CSTD   := c99
-CPPSTD := c++11
+CPPSTD := c++14
 
 ifeq "$(CXX)" "g++"
 	GCCVERSIONLT48 := $(shell expr `gcc -dumpversion` \< 4.8)
@@ -10,7 +10,7 @@ endif
 
 CFLAGS   := -pedantic -std=$(CSTD) -Wall -Werror -O3
 CPPFLAGS := -pedantic -std=$(CPPSTD) -Wall -Werror -O3
-LIBFLAGS := -lcrypto -lssl
+LIBFLAGS := 
 
 all : fsplit
 

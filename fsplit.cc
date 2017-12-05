@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <vector>
 #include <utility>
+#include <limits>
 
 using namespace std;
 
@@ -34,7 +35,6 @@ bool parse_args (int argc, char *argv[], vector<pair<string, size_t>>& files)
 	}
 	for (int k = 1; k < argc; k += 2) {
 		string name = argv[k];
-		string ssize = argv[k + 1];
 		size_t size = 0;
 		if (k < argc - 1) {
 			if (sizeof(size_t) == sizeof(unsigned long)) {
@@ -45,6 +45,8 @@ bool parse_args (int argc, char *argv[], vector<pair<string, size_t>>& files)
 				cerr << "ERROR: sizeof(size_t) matched no known size_t typedef" << endl;
 				return false;
 			}
+		} else {
+			size = numeric_limits<size_t>::max();
 		}
 		files.push_back(make_pair(name, size));
 	}

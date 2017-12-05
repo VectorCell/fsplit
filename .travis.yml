@@ -11,6 +11,5 @@ addons:
     - g++-5
     - clang-3.8
 script:
-   - make test
    - make test CC=gcc-5 CXX=g++-5
    - make test CC=clang CXX=clang++

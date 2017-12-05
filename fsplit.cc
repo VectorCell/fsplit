@@ -4,34 +4,26 @@
 
 #include <cstdio>
 #include <cstdint>
+#include <cassert>
 
 #include <iostream>
 #include <algorithm>
 #include <vector>
 #include <utility>
 
-#define BUFFER_SIZE (32 * 1024)
-
 using namespace std;
 
 size_t copy_to_file (FILE *infile, FILE *outfile, size_t n_bytes)
 {
-	uint8_t buffer[BUFFER_SIZE];
-	size_t bytes_written = 0;
+	static const size_t BUFFER_SIZE = 32 * 1024;
+	static uint8_t buffer[BUFFER_SIZE];
+	size_t n_left = n_bytes;
 	size_t count = 0;
-	if (n_bytes != (size_t)(-1)) {
-		while ((n_bytes > 0) && (count = fread(buffer, 1, (n_bytes < BUFFER_SIZE ? n_bytes : BUFFER_SIZE), infile)) > 0) {
-			fwrite(buffer, 1, count, outfile);
-			n_bytes -= count;
-			bytes_written += count;
-		}
-	} else {
-		while ((count = fread(buffer, 1, BUFFER_SIZE, infile)) > 0) {
-			fwrite(buffer, 1, count, outfile);
-			bytes_written += count;
-		}
+	while ((n_left > 0) && (count = fread(buffer, sizeof(buffer[0]), min(n_left, BUFFER_SIZE), infile)) > 0) {
+		fwrite(buffer, sizeof(buffer[0]), count, outfile);
+		n_left -= count;
 	}
-	return bytes_written;
+	return n_bytes - n_left;
 }
 
 bool parse_args (int argc, char *argv[], vector<pair<string, size_t>>& files)
@@ -71,9 +63,10 @@ int main (int argc, char *argv[])
 	FILE *outfile;
 	for (auto& p : files) {
 		string& name = p.first;
-		size_t size = p.second != 0 ? p.second : -1;
+		size_t size = p.second;
 		outfile = fopen(name.c_str(), "w");
-		copy_to_file(infile, outfile, size);
+		if (size > 0)
+			copy_to_file(infile, outfile, size);
 		fclose(outfile);
 	}
 
